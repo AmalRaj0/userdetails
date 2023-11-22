@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+    crossorigin="anonymous"></script>
+</head>
+<body>
+    <header class="bg-body-secondary p-3">
+        <h1 class="text-danger text-center">USER-DETAILS</h1>
+    </header>
+    <div style="padding-left:250px ;" class="container-fluid d-flex flex-column">
+        <div id="result" class="row row-cols-lg-4 row-cols-xl-4">
+
+        </div>
+    </div>
+    <script>
+        const request=new XMLHttpRequest()
+        request.open("get",'https://jsonplaceholder.typicode.com/users')
+        request.send()
+        console.log(request);
+        request.onreadystatechange=()=>{
+            if(request.readyState==4){
+            if(request.status>199&&request.status<300){
+                const data=JSON.parse(request.responseText)
+                // data.style.color="blue"
+                console.log(data);
+                todoArray(data)
+            }
+        }
+        function todoArray(data){
+            for(item of data){
+                let innerItem=`
+                <div class=" col border border-black mt-5 me-5">
+                    <h1 class="text-center text-bg-danger ">${item.id}</h1>
+                <div class="ps-3">
+                <p class="fw-medium">ID : ${item.id}</p>
+                <p class="fw-medium">NAME : ${item.name}</p>
+                <p class="fw-medium">USERNAME : ${item.username}</p>
+                <p class="fw-medium">EMAIL :<a class="text-primary ps-2 fw-medium"> ${item.email}</a></p>
+                <p class="fw-medium">PHONE NUMBER : ${item.phone}</p>
+                <p class="fw-medium">WEBSITE:<a class="text-primary ps-2 fw-medium">${item.website}</a></p>
+                <p class="fw-medium text-danger">COMPANY</p>
+                <p class="fw-medium">COMPANY NAME: ${item.company.name}</p>
+                <p class="fw-medium">COMPANY CATCHPHRASE: ${item.company.catchPhrase}</p>
+                <p class="fw-medium">COMPANY BUSINESS: ${item.company.bs}</p>
+                <p class="fw-medium text-danger">ADDRESS</p>
+                <p class="fw-medium">STREET :${item.address.street}</p>
+                <p class="fw-medium">SUITE :${item.address.suite}</p>
+                <p class="fw-medium">CITY :${item.address.city}</p>
+                <p class="fw-medium">ZIPCODE :${item.address.zipcode}</p>
+                <p class="fw-medium text-danger">LOCATION</p>
+                <p class="fw-medium">LATITUDE:${item.address.geo.lat}</p>
+                <p class="fw-medium">LONGITUTUDE:${item.address.geo.lat}</p>
+                </div>
+</div>
+                                       
+     `
+     result.innerHTML+=innerItem
+            }
+        }
+        }
+    </script>
+</body>
+
+</html>
